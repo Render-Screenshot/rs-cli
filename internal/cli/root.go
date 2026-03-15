@@ -38,6 +38,9 @@ and preview page metadata — all from your terminal.`,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			printer = output.New(flagJSON, flagQuiet, flagVerbose)
 		},
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return cmd.Help()
+		},
 		Version: Version,
 	}
 
