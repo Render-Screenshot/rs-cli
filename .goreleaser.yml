@@ -44,6 +44,7 @@ brews:
   - repository:
       owner: Render-Screenshot
       name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
     homepage: "https://renderscreenshot.com"
     description: "CLI for the RenderScreenshot API"
     license: "MIT"
