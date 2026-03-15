@@ -1,0 +1,28 @@
+# Binaries
+/rs
+/rs-cli
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+dist/
+
+# Test
+*.test
+*.out
+coverage.txt
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Go
+vendor/

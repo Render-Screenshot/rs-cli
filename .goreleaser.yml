@@ -1,0 +1,60 @@
+version: 2
+
+project_name: rs
+
+before:
+  hooks:
+    - go mod tidy
+    - go generate ./...
+
+builds:
+  - main: ./cmd/rs
+    binary: rs
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w -X github.com/Render-Screenshot/rs-cli/internal/cli.Version={{.Version}}
+
+archives:
+  - format: tar.gz
+    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
+    format_overrides:
+      - goos: windows
+        format: zip
+
+checksum:
+  name_template: "checksums.txt"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^ci:"
+
+brews:
+  - repository:
+      owner: Render-Screenshot
+      name: homebrew-tap
+    homepage: "https://renderscreenshot.com"
+    description: "CLI for the RenderScreenshot API"
+    license: "MIT"
+    install: |
+      bin.install "rs"
+
+dockers:
+  - image_templates:
+      - "ghcr.io/render-screenshot/rs-cli:{{ .Version }}"
+      - "ghcr.io/render-screenshot/rs-cli:latest"
+    dockerfile: Dockerfile
+    build_flag_templates:
+      - "--label=org.opencontainers.image.title={{ .ProjectName }}"
+      - "--label=org.opencontainers.image.version={{ .Version }}"
