@@ -49,12 +49,3 @@ brews:
     license: "MIT"
     install: |
       bin.install "rs"
-
-dockers:
-  - image_templates:
-      - "ghcr.io/render-screenshot/rs-cli:{{ .Version }}"
-      - "ghcr.io/render-screenshot/rs-cli:latest"
-    dockerfile: Dockerfile
-    build_flag_templates:
-      - "--label=org.opencontainers.image.title={{ .ProjectName }}"
-      - "--label=org.opencontainers.image.version={{ .Version }}"
